@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="baseLayout" template="/WEB-INF/layouts/template/base.jsp">
+        <put-attribute name="titolo" value="" />
+        <put-attribute name="content" value="" />
+    </definition>
+    <definition name="home" extends="baseLayout">
+        <put-attribute name="titolo"  value="Benvenuto in Renting Car" />
+        <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+    </definition>
+    <definition name="addUser" extends="baseLayout">
+        <put-attribute name="titolo"  value="Registrazione" />
+        <put-attribute name="content" value="/WEB-INF/views/addUser.jsp" />
+    </definition>
+    <definition name="addUser" extends="baseLayout">
+        <put-attribute name="titolo"  value="Modifica i tuoi dati" />
+        <put-attribute name="content" value="/WEB-INF/views/addUser.jsp" />
+    </definition>
+
+</tiles-definitions>
