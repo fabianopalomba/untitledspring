@@ -9,11 +9,6 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>untitledspring Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
-
-
   <properties>
     <springframework.version>5.1.8.RELEASE</springframework.version>
     <hibernate.version>5.4.3.Final</hibernate.version>
@@ -21,7 +16,6 @@
 
   <dependencies>
 
-    <!-- Spring -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -37,12 +31,22 @@
       <artifactId>spring-oxm</artifactId>
       <version>${springframework.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>2.1.5.RELEASE</version>
+    </dependency>
 
-    <!-- Servlet+JSP+JSTL -->
+
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>4.0.1</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
@@ -55,112 +59,35 @@
       <version>1.2</version>
     </dependency>
 
-    <!-- Tiles -->
     <dependency>
       <groupId>org.apache.tiles</groupId>
       <artifactId>tiles-extras</artifactId>
       <version>3.0.8</version>
     </dependency>
 
-    <!-- Jdbc -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>${springframework.version}</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.16</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>6.0.15.Final</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-      <version>1.4</version>
-    </dependency>
-
-    <!-- Jackson (JSON) -->
-    <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
-      <version>1.9.13</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.9.8</version>
-    </dependency>
-
-    <!-- Estrazione Formato Excel -->
-    <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi</artifactId>
-      <version>4.0.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi-ooxml</artifactId>
-      <version>4.0.1</version>
-    </dependency>
-
-    <!-- Estrazione Formato PDF -->
-    <dependency>
-      <groupId>com.github.librepdf</groupId>
-      <artifactId>openpdf</artifactId>
-      <version>1.2.11</version>
-    </dependency>
-
-    <!-- Estrazione Formato CSV -->
-    <dependency>
-      <groupId>net.sf.supercsv</groupId>
-      <artifactId>super-csv</artifactId>
-      <version>2.4.0</version>
-    </dependency>
-
-    <!-- Da Utilizzare con JDK > 8 -->
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <version>2.3.1</version>
     </dependency>
 
-    <!-- Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-c3p0</artifactId>
-      <version>${hibernate.version}</version>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.0.15.Final</version>
     </dependency>
 
-    <!-- c3p0 -->
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.9.5.3</version>
-    </dependency>
-
-    <!--Spring Data JPA -->
-    <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-jpa</artifactId>
-      <version>2.1.5.RELEASE</version>
-    </dependency>
-
-    <!-- Log -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -199,7 +126,7 @@
           <version>3.2.2</version>
           <configuration>
             <warSourceDirectory>src/main/webapp</warSourceDirectory>
-            <warName>SpringHibernateExample</warName>
+            <warName>untitledspring</warName>
             <failOnMissingWebXml>false</failOnMissingWebXml>
           </configuration>
 

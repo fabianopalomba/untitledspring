@@ -6,16 +6,15 @@ import java.util.List;
 
 public interface GenericRepository<I extends Serializable, E extends Serializable>
 {
-	@NotNull
-	List<I> SelTutti();
+	@NotNull List<I> GetEvery();
 	
-	void Inserisci(@NotNull I entity);
+	void Insert(@NotNull I entity);
 	
-	void Aggiorna(@NotNull I entity);
+	void Update(@NotNull I entity);
 	
-	void Elimina(@NotNull I entity);
+	void Delete(@NotNull I entity);
 	
-	void EliminaById(@NotNull E Id);
+	void DeleteById(@NotNull E Id);
 	
 	I SelById(@NotNull E Id);
 }

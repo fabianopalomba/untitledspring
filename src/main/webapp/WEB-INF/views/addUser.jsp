@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="container">
     <h1>Register Form:</h1>
@@ -35,6 +35,8 @@
                          <td><form:input path="password" type="password" class="form-control" name="password"
                                          placeholder="Enter Password" required="true"/></td>
                      </tr>
+                     <form:input path="role" value="USER" hidden="true"/>
+                     <form:input path="enabled" value="true" hidden="true"/>
 
                      <tr>
                         <td><input type="submit" value="Submit"/></td>

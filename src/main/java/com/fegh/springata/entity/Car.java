@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cars", schema = "alphashop")
+@Table(name = "cars", schema = "renting")
 public class Car implements Serializable {
     private int carsid;
     private String brand;
@@ -54,7 +54,7 @@ public class Car implements Serializable {
         this.model = model;
     }
 
-    @OneToMany (mappedBy = "car",orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "car",orphanRemoval = true, cascade = CascadeType.MERGE)
     public List<com.fegh.springata.entity.Rent> getRents() {
         return rents;
     }

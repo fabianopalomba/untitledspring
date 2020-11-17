@@ -11,7 +11,7 @@ public interface CarDao {
 
     List<Car> SelCarsByBrand(String brand);
 
-    List<Car> SelTutti();
+    List<Car> GetEvery();
 
 
 }

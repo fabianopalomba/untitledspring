@@ -20,13 +20,13 @@ public class CarDaoImpl extends AbstractDao<Car, Integer> implements CarDao{
         Session session = entityManager.unwrap(Session.class);
         Criteria criteria = session.createCriteria(Rent.class);
         criteria.add(Restrictions.and(Restrictions.le("initDate",dateinit),Restrictions.ge("finDate",dateinit)));
-        criteria.setProjection(Projections.distinct(Projections.property("primaryKey.car")));
+        criteria.setProjection(Projections.distinct(Projections.property("car")));
         Criteria criteria1 = session.createCriteria(Rent.class);
         criteria1.add(Restrictions.and(Restrictions.le("initDate",datefini),Restrictions.ge("finDate",datefini)));
-        criteria1.setProjection(Projections.distinct(Projections.property("primaryKey.car")));
+        criteria1.setProjection(Projections.distinct(Projections.property("car")));
         List<Car> list1 = criteria.list();
         list1.addAll(criteria1.list());
-        List<Car> list2 = session.createCriteria(Rent.class).setProjection(Projections.distinct(Projections.property("primaryKey.car"))).list();
+        List<Car> list2 = session.createCriteria(Rent.class).setProjection(Projections.distinct(Projections.property("car"))).list();
         list2.removeAll(list1);
         System.out.println(list2);
         session.close();
@@ -41,8 +41,8 @@ public class CarDaoImpl extends AbstractDao<Car, Integer> implements CarDao{
     }
 
     @Override
-    public List<Car> SelTutti() {
-        return super.SelTutti();
+    public List<Car> GetEvery() {
+        return super.GetEvery();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class CarServiceImpl implements CarService{
     }
 
     @Override
-    public List<Car> SelTutti() {
-        return carDao.SelTutti();
+    public List<Car> GetEvery() {
+        return carDao.GetEvery();
     }
 }

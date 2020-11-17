@@ -11,6 +11,6 @@ public interface CarService {
 
     List<Car> SelCarsByBrand(String brand);
 
-    List<Car> SelTutti();
+    List<Car> GetEvery();
 
 }

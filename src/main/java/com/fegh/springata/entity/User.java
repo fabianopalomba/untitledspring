@@ -1,5 +1,7 @@
 package com.fegh.springata.entity;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,22 +9,41 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users", schema = "alphashop")
+@Table(name = "users", schema = "renting")
 public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String phone;
     private String email;
     private String password;
+    private String role;
+    private boolean enabled;
     private List<com.fegh.springata.entity.Rent> rents = new ArrayList<>();
 
     public User() {
+    }
+
+    public User(String firstName, String lastName, String phone, String email, String password, String role, boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
     }
 
     public User(String firstName, String lastName, String phone, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.role = "USER";
+        this.enabled = true;
+    }
+
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -60,13 +81,21 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    @Column(name = "password", nullable = false, length = 45)
+    @Column(name = "password", nullable = false, length=64)
     public String getPassword() {
         return password;
     }
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Column(name = "role", nullable = false, length=4)
+    public String getRole(){ return role; }
+    public void setRole(String role) { this.role = role;}
+
+    @Column(name = "enabled", nullable = false)
+    public boolean isEnabled(){ return enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled;}
 
     @OneToMany(mappedBy = "user",orphanRemoval = true, cascade = CascadeType.ALL)
     public List<com.fegh.springata.entity.Rent> getRents() {
@@ -81,15 +110,17 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return firstName.equals(user.firstName) &&
+        return enabled == user.enabled &&
+                firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
                 phone.equals(user.phone) &&
                 email.equals(user.email) &&
-                password.equals(user.password);
+                password.equals(user.password) &&
+                role.equals(user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, phone, email, password);
+        return Objects.hash(firstName, lastName, phone, email, password, role, enabled);
     }
 }

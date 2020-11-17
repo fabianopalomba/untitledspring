@@ -15,12 +15,7 @@ public class RentServiceImpl implements RentService{
     private RentDao rentDao;
 
     @Override
-    public List<Rent> rentByEmail(String email) {
-        return rentDao.rentByEmail(email);
-    }
-
-    @Override
-    public void Inserisci(Rent rent) {
-        rentDao.Inserisci(rent);
+    public void Insert(Rent rent) {
+        rentDao.Insert(rent);
     }
 }

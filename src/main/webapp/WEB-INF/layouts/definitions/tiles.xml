@@ -8,17 +8,41 @@
         <put-attribute name="titolo" value="" />
         <put-attribute name="content" value="" />
     </definition>
-    <definition name="home" extends="baseLayout">
+    <definition name="index" extends="baseLayout">
         <put-attribute name="titolo"  value="Benvenuto in Renting Car" />
-        <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
     </definition>
     <definition name="addUser" extends="baseLayout">
         <put-attribute name="titolo"  value="Registrazione" />
         <put-attribute name="content" value="/WEB-INF/views/addUser.jsp" />
     </definition>
-    <definition name="addUser" extends="baseLayout">
+    <definition name="login" extends="baseLayout">
+        <put-attribute name="titolo"  value="Login Form" />
+        <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
+    </definition>
+
+    <definition name="loggedLayout" template="/WEB-INF/layouts/template/logged.jsp">
+        <put-attribute name="titolo" value="" />
+        <put-attribute name="content" value="" />
+    </definition>
+    <definition name="home" extends="loggedLayout">
+        <put-attribute name="titolo"  value="Benvenuto in Renting Car" />
+        <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+    </definition>
+    <definition name="editUser" extends="loggedLayout">
         <put-attribute name="titolo"  value="Modifica i tuoi dati" />
-        <put-attribute name="content" value="/WEB-INF/views/addUser.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/editUser.jsp" />
+    </definition>
+    <definition name="viewUser" extends="loggedLayout">
+        <put-attribute name="titolo"  value="Visualizza i tuoi dati" />
+        <put-attribute name="content" value="/WEB-INF/views/viewUser.jsp" />
+    </definition>
+    <definition name="newRent" extends="loggedLayout">
+        <put-attribute name="titolo"  value="Effettua un nuovo noleggio" />
+        <put-attribute name="content" value="/WEB-INF/views/newRent.jsp" />
+    </definition>
+    <definition name="selectCar" extends="loggedLayout">
+        <put-attribute name="titolo"  value="Scegli la macchina" />
+        <put-attribute name="content" value="/WEB-INF/views/selectCar.jsp" />
     </definition>
 
 </tiles-definitions>

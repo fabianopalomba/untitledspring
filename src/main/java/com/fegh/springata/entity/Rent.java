@@ -6,12 +6,12 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "rent", schema = "alphashop")
+@Table(name = "rent", schema = "renting")
 @AssociationOverrides({
         @AssociationOverride(name = "user",
-                joinColumns = @JoinColumn(name = "email", referencedColumnName = "email")),
+                joinColumns = @JoinColumn(name = "user", referencedColumnName = "email")),
         @AssociationOverride(name = "car",
-                joinColumns = @JoinColumn(name= "id", referencedColumnName = "carsid"))})
+                joinColumns = @JoinColumn(name= "car", referencedColumnName = "carsid"))})
 
 public class Rent implements Serializable{
     public int rentid;
@@ -44,6 +44,10 @@ public class Rent implements Serializable{
     public int getRentid(){return rentid;}
     public void setRentid(int rentid) {  this.rentid=rentid;  }
 
+    @Column(name = "initDate", nullable = false)
+    public Date getInitDate(){ return initDate; }
+    public void setInitDate(Date initDate){ this.initDate=initDate; }
+
     @Column(name = "finDate", nullable = false)
     public Date getFinDate() {
         return finDate;
@@ -52,7 +56,7 @@ public class Rent implements Serializable{
         this.finDate = finDate;
     }
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     public Car getCar(){
         return car;
     }
@@ -60,14 +64,11 @@ public class Rent implements Serializable{
         this.car = car;
     }
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public User getUser(){ return user; }
     public void setUser(User user){
         this.user = user;
     }
-
-    public Date getInitDate(){ return initDate; }
-    public void setInitDate(Date d){ this.initDate=initDate; }
 
     @Override
     public boolean equals(Object o) {

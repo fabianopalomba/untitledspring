@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface RentService {
 
-    List<Rent> rentByEmail(String email);
-
-    void Inserisci(Rent rent);
+    void Insert(Rent rent);
 
 }

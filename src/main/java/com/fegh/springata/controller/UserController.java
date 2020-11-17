@@ -1,15 +1,19 @@
 package com.fegh.springata.controller;
 
+import com.fegh.springata.entity.Rent;
 import com.fegh.springata.entity.User;
 import com.fegh.springata.service.UserService;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.stream.events.Comment;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,6 +30,27 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@GetMapping(value = "/login")
+	public ModelAndView displayLoginForm() {
+		ModelAndView mv = new ModelAndView("login");
+		mv.addObject("headerMessage", "Show login form");
+		mv.addObject("user", new User());
+		return mv;
+	}
+
+	@PostMapping(value = "/login")
+	public ModelAndView loginUser(@ModelAttribute User user, HttpSession session){
+		ModelAndView mv = new ModelAndView("redirect:/home");
+		if(userService.validate(user.getEmail(),user.getPassword())){
+			session.setAttribute("email", user.getEmail());
+		}
+		else {
+			mv.addObject("message","login failed");
+			mv.addObject("email","");
+		}
+		return mv;
+	}
+
 	@GetMapping(value = "/addUser")
 	public ModelAndView displayNewUserForm() {
 		ModelAndView mv = new ModelAndView("addUser");
@@ -35,35 +60,56 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/addUser")
-	public ModelAndView saveNewUser(@ModelAttribute User user) {
+	public ModelAndView saveNewUser(@ModelAttribute User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView("redirect:/home");
-		userService.Inserisci(user);
+		userService.Insert(user);
+		session.setAttribute("email",user.getEmail());
 		mv.addObject("message", "New user successfully added");
 		return mv;
 	}
 
-	@GetMapping(value = "/editUser/{name}")
-	public ModelAndView displayEditUserForm(@PathVariable String name) {
-		ModelAndView mv = new ModelAndView("/editUser");
-		User user = userService.userByEmail(name);
+	@GetMapping(value = "/editUser")
+	public ModelAndView displayEditUserForm(HttpSession session) {
+		ModelAndView mv = new ModelAndView("editUser");
+		User user = userService.userByEmail((String)session.getAttribute("email"));
 		mv.addObject("headerMessage", "Edit User Details");
 		mv.addObject("user", user);
 		return mv;
 	}
 
-	@PostMapping(value = "/editUser/{name}")
-	public ModelAndView saveEditedUser(@ModelAttribute User user) {
+	@PostMapping(value = "/editUser")
+	public ModelAndView saveEditedUser(@ModelAttribute User user, HttpSession session) {
 		ModelAndView mv = new ModelAndView("redirect:/home");
 		mv.addObject("headerMessage", "User edited");
-		userService.Aggiorna(user);
+		userService.Update(user);
 		return mv;
 	}
 
-	@GetMapping(value = "/deleteUser/{name}")
-	public ModelAndView deleteUserById(@PathVariable String name) {
-		userService.eliminaByEmail(name);
-		ModelAndView mv = new ModelAndView("redirect:/home");
+	@GetMapping(value = "/deleteUser")
+	public ModelAndView deleteUserById(HttpSession session) {
+		userService.DeleteByEmail((String)session.getAttribute("email"));
+		ModelAndView mv = new ModelAndView("redirect:/index");
+		session.removeAttribute("email");
 		mv.addObject("headerMessage", "User deleted");
+		return mv;
+	}
+
+	@GetMapping(value = "/viewUser")
+	public ModelAndView displayUserData(@ModelAttribute String email, HttpSession session) {
+		ModelAndView mv = new ModelAndView("viewUser");
+		User user = userService.userByEmail(((String)session.getAttribute("email")));
+		System.out.println(session.getAttribute("email"));
+		List<Rent> rents = userService.rentByEmail(((String)session.getAttribute("email")));
+		mv.addObject("headerMessage", "Edit User Details");
+		mv.addObject("user", user);
+		mv.addObject("rents",rents);
+		return mv;
+	}
+	@GetMapping(value = "/logout")
+	public ModelAndView logout(HttpSession session) {
+		ModelAndView mv = new ModelAndView("redirect:/index");
+		session.removeAttribute("email");
+		mv.addObject("headerMessage", "Logout successful");
 		return mv;
 	}
 

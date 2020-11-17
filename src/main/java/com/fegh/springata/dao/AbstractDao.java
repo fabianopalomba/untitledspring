@@ -27,7 +27,7 @@ public abstract class AbstractDao<I extends Serializable, Id extends Serializabl
     }
 
     @Override
-    public List<I> SelTutti()
+    public List<I> GetEvery()
     {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<I> query = builder.createQuery(this.entityClass);
@@ -52,21 +52,21 @@ public abstract class AbstractDao<I extends Serializable, Id extends Serializabl
     }
 
     @Override
-    public void Inserisci(I entity)
+    public void Insert(I entity)
     {
         this.entityManager.persist(entity);
         flushAndClear();
     }
 
     @Override
-    public void Aggiorna(I entity)
+    public void Update(I entity)
     {
         this.entityManager.merge(entity);
         flushAndClear();
     }
 
     @Override
-    public void Elimina(I entity)
+    public void Delete(I entity)
     {
 
         this.entityManager.remove(this.entityManager.contains(entity) ? entity : this.entityManager.merge(entity));
@@ -75,7 +75,7 @@ public abstract class AbstractDao<I extends Serializable, Id extends Serializabl
     }
 
     @Override
-    public void EliminaById(Id id)
+    public void DeleteById(Id id)
     {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         CriteriaDelete<I> query = builder.createCriteriaDelete(this.entityClass);

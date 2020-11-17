@@ -1,6 +1,7 @@
 package com.fegh.springata.service;
 
 import com.fegh.springata.dao.UserDao;
+import com.fegh.springata.entity.Rent;
 import com.fegh.springata.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,26 +24,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void Inserisci(User user) {
-        userDao.Inserisci(user);
+	public void Insert(User user) {
+        userDao.Insert(user);
 	}
 
 	@Override
-	public void Aggiorna(User user) {
-        userDao.Aggiorna(user);
+	public void Update(User user) {
+        userDao.Update(user);
 	}
 
 	@Override
-	public void Elimina(User user) {
-        userDao.Elimina(user);
+	public void Delete(User user) {
+        userDao.Delete(user);
 	}
 
 	@Override
-	public void eliminaByEmail(String email) { userDao.eliminaByEmail(email);	}
+	public void DeleteByEmail(String email) { userDao.DeleteByEmail(email);	}
 
 	@Override
 	public User userByEmail(String email) {
 		User user = userDao.userByEmail(email);
 		return user;
+	}
+	@Override
+	public List<Rent> rentByEmail(String email) {
+		return userDao.rentByEmail(email);
 	}
 }
