@@ -1,6 +1,9 @@
 package com.fegh.springata.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -14,10 +17,17 @@ import java.util.Objects;
                 joinColumns = @JoinColumn(name= "car", referencedColumnName = "carsid"))})
 
 public class Rent implements Serializable{
+
     public int rentid;
     private Car car;
     private User user;
+
+    /*@NotNull(message = "{rent.initDate.notNull}")
+    @Future(message = "{rent.initDate.future}")*/
     private Date initDate;
+
+    /*@NotNull(message = "{rent.finDate.notNull}")
+    @Future(message = "{rent.finDate.future}")*/
     private Date finDate;
 
     public Rent() {

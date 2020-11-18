@@ -30,7 +30,7 @@
     </definition>
     <definition name="editUser" extends="loggedLayout">
         <put-attribute name="titolo"  value="Modifica i tuoi dati" />
-        <put-attribute name="content" value="/WEB-INF/views/editUser.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/addUser.jsp" />
     </definition>
     <definition name="viewUser" extends="loggedLayout">
         <put-attribute name="titolo"  value="Visualizza i tuoi dati" />

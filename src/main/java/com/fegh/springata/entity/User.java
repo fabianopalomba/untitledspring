@@ -3,6 +3,10 @@ package com.fegh.springata.entity;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +15,28 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "renting")
 public class User implements Serializable {
+
+    @NotBlank(message = "{user.firstName.NotBlank}")
     private String firstName;
+
+    @NotBlank(message = "{user.lastName.NotBlank}")
     private String lastName;
+
+    @NotBlank(message = "{user.phone.NotBlank}")
+    @Pattern(regexp = "[0,3][0-9]{9}")
     private String phone;
+
+    @NotBlank(message = "{user.email.NotBlank}")
+    @Email
     private String email;
+
+    @NotBlank(message = "{user.password.NotBlank}")
     private String password;
+
     private String role;
+
     private boolean enabled;
+
     private List<com.fegh.springata.entity.Rent> rents = new ArrayList<>();
 
     public User() {

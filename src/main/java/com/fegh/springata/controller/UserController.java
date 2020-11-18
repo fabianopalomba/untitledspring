@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import javax.xml.stream.events.Comment;
 import java.io.IOException;
 import java.util.List;
@@ -51,37 +52,36 @@ public class UserController {
 		return mv;
 	}
 
-	@GetMapping(value = "/addUser")
-	public ModelAndView displayNewUserForm() {
-		ModelAndView mv = new ModelAndView("addUser");
-		mv.addObject("headerMessage", "Add User Details");
-		mv.addObject("user", new User());
+	@GetMapping(value = {"/addUser","/editUser"})
+	public ModelAndView displayNewUserForm(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		if (session.getAttribute("email") == null){
+			mv.setViewName("addUser");
+			mv.addObject("headerMessage", "Add User Details");
+			mv.addObject("user", new User()); }
+		else {
+			User user = userService.userByEmail((String)session.getAttribute("email"));
+			mv.setViewName("editUser");
+			mv.addObject("headerMessage", "Edit User Details");
+			mv.addObject("user", user);
+
+		}
 		return mv;
 	}
 
-	@PostMapping(value = "/addUser")
-	public ModelAndView saveNewUser(@ModelAttribute User user, HttpSession session) {
+	@PostMapping(value = {"/addUser","/editUser"})
+	public ModelAndView saveNewUser(@Valid @ModelAttribute User user, BindingResult result, HttpSession session) {
 		ModelAndView mv = new ModelAndView("redirect:/home");
-		userService.Insert(user);
-		session.setAttribute("email",user.getEmail());
-		mv.addObject("message", "New user successfully added");
-		return mv;
-	}
-
-	@GetMapping(value = "/editUser")
-	public ModelAndView displayEditUserForm(HttpSession session) {
-		ModelAndView mv = new ModelAndView("editUser");
-		User user = userService.userByEmail((String)session.getAttribute("email"));
-		mv.addObject("headerMessage", "Edit User Details");
-		mv.addObject("user", user);
-		return mv;
-	}
-
-	@PostMapping(value = "/editUser")
-	public ModelAndView saveEditedUser(@ModelAttribute User user, HttpSession session) {
-		ModelAndView mv = new ModelAndView("redirect:/home");
-		mv.addObject("headerMessage", "User edited");
-		userService.Update(user);
+		if(session.getAttribute("email") == null) {
+			if(result.hasErrors()) { mv.setViewName("addUser"); return mv;}
+			userService.Insert(user);
+			session.setAttribute("email", user.getEmail());
+			mv.addObject("message", "New user successfully added");
+		} else {
+			if (result.hasErrors()){ mv.setViewName("editUser"); return mv;}
+			mv.addObject("headerMessage", "User edited");
+			userService.Update(user);
+		}
 		return mv;
 	}
 

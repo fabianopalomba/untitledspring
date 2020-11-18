@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,13 +25,17 @@ public class CarDaoImpl extends AbstractDao<Car, Integer> implements CarDao{
         Criteria criteria1 = session.createCriteria(Rent.class);
         criteria1.add(Restrictions.and(Restrictions.le("initDate",datefini),Restrictions.ge("finDate",datefini)));
         criteria1.setProjection(Projections.distinct(Projections.property("car")));
-        List<Car> list1 = criteria.list();
+        List<Integer> list1 = criteria.list();
         list1.addAll(criteria1.list());
-        List<Car> list2 = session.createCriteria(Rent.class).setProjection(Projections.distinct(Projections.property("car"))).list();
+        List<Integer> list2 = session.createCriteria(Car.class).setProjection(Projections.property("carsid")).list();
         list2.removeAll(list1);
-        System.out.println(list2);
+        List<Car> list3 = new ArrayList<>();
+        for (int c : list2){
+            list3.add(SelById(c));
+        }
+        System.out.println(list3.toString());
         session.close();
-        return list2;
+        return list3;
     }
 
     @Override
@@ -47,6 +52,17 @@ public class CarDaoImpl extends AbstractDao<Car, Integer> implements CarDao{
 
     @Override
     public Car SelById(Integer integer) {
-        return super.SelById(integer);
+        {
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Car> query = builder.createQuery(Car.class);
+
+            return entityManager.createQuery(
+                    query.where(
+                            builder.equal(
+                                    query.from(this.entityClass).
+                                            get("carsid"), integer))).
+                    getSingleResult();
+
+        }
     }
 }

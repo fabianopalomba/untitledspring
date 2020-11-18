@@ -4,6 +4,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.fegh.springata")
+@PropertySource("classpath:application.properties")
 public class WebMvcConfig implements WebMvcConfigurer{
 
 	@Override
@@ -41,8 +44,8 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
 	}
-/*
-	@Bean
+
+	@Bean(name = "validator")
 	public LocalValidatorFactoryBean validator(){
 		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
 		bean.setValidationMessageSource(messageSource());
@@ -50,13 +53,14 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	}
 	@Bean
 	public MessageSource messageSource(){
-		ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
-		resource.setBasename("messages");
+		ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
+		resource.setBasename("classpath:messages");
+		resource.setDefaultEncoding("UTF-8");
 		return resource;
 	}
 	@Override
 	public Validator getValidator(){
 		return validator();
 	}
-*/
+
 }
