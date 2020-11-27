@@ -26,6 +26,7 @@ public class CarController {
     public CarController(CarService carService) {
         this.carService = carService;
     }
+
     @GetMapping(value = "/selectCar")
     public ModelAndView displayCar(@RequestParam("initDate") String initDate, @RequestParam("finDate") String finDate) throws ParseException {
         ModelAndView mv = new ModelAndView("selectCar");

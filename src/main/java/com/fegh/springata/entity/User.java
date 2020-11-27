@@ -1,5 +1,6 @@
 package com.fegh.springata.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -108,14 +109,17 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    @JsonIgnore
     @Column(name = "role", nullable = false, length=4)
     public String getRole(){ return role; }
     public void setRole(String role) { this.role = role;}
 
+    @JsonIgnore
     @Column(name = "enabled", nullable = false)
     public boolean isEnabled(){ return enabled; }
     public void setEnabled(boolean enabled) { this.enabled = enabled;}
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user",orphanRemoval = true, cascade = CascadeType.ALL)
     public List<com.fegh.springata.entity.Rent> getRents() {
         return rents;

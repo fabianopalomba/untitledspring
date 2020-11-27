@@ -13,4 +13,6 @@ public interface CarService {
 
     List<Car> GetEvery();
 
+    Car SelById(Integer integer);
+
 }

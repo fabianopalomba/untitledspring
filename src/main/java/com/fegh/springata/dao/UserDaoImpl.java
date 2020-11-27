@@ -4,6 +4,7 @@ import com.fegh.springata.entity.Rent;
 import com.fegh.springata.entity.User;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,7 +16,7 @@ public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
 
     @Override
     public User userByEmail(String email) {
-        User user;
+        User user = new User("","","","","");
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> queryDefinition = cb.createQuery(User.class);
@@ -24,8 +25,12 @@ public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
 
         queryDefinition.select(recordset).
                 where(cb.equal(recordset.get("email"), email));
+        try {
+            user = entityManager.createQuery(queryDefinition).getSingleResult();
+        }
+        catch (NoResultException e){
 
-        user = entityManager.createQuery(queryDefinition).getSingleResult();
+        }
 
         entityManager.clear();
 

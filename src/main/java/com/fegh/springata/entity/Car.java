@@ -1,5 +1,7 @@
 package com.fegh.springata.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -56,6 +58,7 @@ public class Car implements Serializable {
         this.model = model;
     }
 
+    @JsonIgnore
     @OneToMany (mappedBy = "car",orphanRemoval = true, cascade = CascadeType.MERGE)
     public List<com.fegh.springata.entity.Rent> getRents() {
         return rents;

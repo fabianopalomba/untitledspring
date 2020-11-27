@@ -13,5 +13,5 @@ public interface CarDao {
 
     List<Car> GetEvery();
 
-
+    Car SelById(Integer integer);
 }

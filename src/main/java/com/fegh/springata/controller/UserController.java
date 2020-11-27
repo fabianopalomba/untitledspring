@@ -46,6 +46,7 @@ public class UserController {
 			session.setAttribute("email", user.getEmail());
 		}
 		else {
+			mv.setViewName("redirect:/login");
 			mv.addObject("message","login failed");
 			mv.addObject("email","");
 		}

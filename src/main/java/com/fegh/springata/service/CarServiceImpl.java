@@ -30,4 +30,9 @@ public class CarServiceImpl implements CarService{
     public List<Car> GetEvery() {
         return carDao.GetEvery();
     }
+
+    @Override
+    public Car SelById(Integer integer){
+        return carDao.SelById(integer);
+    }
 }
